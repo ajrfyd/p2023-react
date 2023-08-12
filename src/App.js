@@ -1,11 +1,12 @@
 import react from "react";
+import { Routes, Route } from "react-router-dom";
+import HomeView from "./views/HomeView";
 
 const App = () => {
-  console.log(react);
   return (
-    <div>
-      <h1>Welcome!!</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomeView />} />
+    </Routes>
   )
 };
 
