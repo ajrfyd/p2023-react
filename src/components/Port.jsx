@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import port01 from "../assets/img/port01.jpg";
 import port02 from "../assets/img/port02.jpg";
 import port03 from "../assets/img/port03.jpg";
@@ -9,6 +9,8 @@ import port07 from "../assets/img/port07.jpg";
 import port08 from "../assets/img/port08.jpg";
 import port09 from "../assets/img/port09.jpg";
 import port10 from "../assets/img/port10.jpg";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const portText = [
   {
@@ -104,9 +106,37 @@ const portText = [
 ];
 
 const Port = () => {
+  const hRef = useRef(null);
+  const sectionRef = useRef([]);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    console.log(sectionRef);
+    console.log(hRef);
+    const h = hRef.current;
+    const sections = sectionRef.current;
+    
+    let scrollTween = gsap.to(sections, {
+      xPercent: -120 * (sections.length - 1),
+      ease: "none",
+      scrollTrigger: {
+        trigger: h,
+        start: "top 56px",
+        end: () => "+=" + h.offsetWidth,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+      }
+    });
+
+    return () => {
+      scrollTween.kill();
+    }
+  }, []);
 
   return (
-    <section id="port">
+    <section id="port" ref={hRef}>
       <div className="port__inner">
         <div className="port__title">
           portfolio <em>포폴 작업물</em>
@@ -114,7 +144,7 @@ const Port = () => {
         <div className="port__wrap">
           {
             portText.map((port, idx) => (
-              <article className={`port__item p${idx + 1}`} key={idx + 1}>
+              <article className={`port__item p${idx + 1}`} key={idx + 1} ref={el => sectionRef.current[idx] = el}>
                 <span className="num">{port.num}.</span>
                 <a href={`port${port.num}`} target="_blank" className="img" rel="noreferrer">
                   <img src={port.img} alt={port.name} />
