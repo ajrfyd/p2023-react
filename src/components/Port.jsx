@@ -114,7 +114,7 @@ const Port = () => {
         <div className="port__wrap">
           {
             portText.map((port, idx) => (
-              <article className={`port__item p${idx + 1}`}>
+              <article className={`port__item p${idx + 1}`} key={idx + 1}>
                 <span className="num">{port.num}.</span>
                 <a href={`port${port.num}`} target="_blank" className="img" rel="noreferrer">
                   <img src={port.img} alt={port.name} />

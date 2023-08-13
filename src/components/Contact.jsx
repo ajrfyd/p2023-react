@@ -1,11 +1,55 @@
 import React from "react";
 
+const contactText = [
+  {
+      link: "https://open.kakao.com/o/gM7YLzwf",
+      title: "KAKAO : webstupids",
+  },
+  {
+      link: "mailto:webstoryboy@naver.com",
+      title: "mail : webstoryboy@naver.com",
+  },
+];
+
 const Contact = () => {
 
   return (
-    <div>
-      Hello Contact??
-    </div>
+    <section id="contact">
+      <div className="contact__inner">
+        <h2 className="contact__title">Contact</h2>
+        <div className="contact__lines top" aria-hidden="true">
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+        </div>
+        <div className="contact__text">
+          <div className="text">
+            {
+              contactText.map((contact, idx) => (
+                <React.Fragment key={idx + 1}>
+                  <div>
+                    <a href={contact.link}>{contact.title}</a>
+                  </div>
+                </React.Fragment>
+              ))
+            }
+          </div>
+        </div>
+        <div className="contact__lines bottom" aria-hidden="true">
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+        </div>
+      </div>
+    </section>
   )
 }
 
